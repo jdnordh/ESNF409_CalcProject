@@ -17,12 +17,12 @@ public class Calculator extends AppCompatActivity {
     private static final char DIVISION = '/';
     private static final char NO_OP = 'N';
 
-    private Binder binding;
+    private boolean equalsJustPressed = false;
 
     private char currentOp = NO_OP;
 
     private double v1, v2;
-
+    private double ans;
     private double result;
 
     //private DecimalFormat format = new DecimalFormat();
@@ -46,6 +46,10 @@ public class Calculator extends AppCompatActivity {
         button0.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final TextView text = (TextView) findViewById(R.id.textView);
+                if (equalsJustPressed) {
+                    text.setText("");
+                    equalsJustPressed = false;
+                }
                 if (text.getText().length() < 18) {
                     text.setText(text.getText() + "0");
                 }
@@ -55,6 +59,10 @@ public class Calculator extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final TextView text = (TextView) findViewById(R.id.textView);
+                if (equalsJustPressed) {
+                    text.setText("");
+                    equalsJustPressed = false;
+                }
                 if (text.getText().length() < 18) {
                     text.setText(text.getText() + "1");
                 }
@@ -64,6 +72,10 @@ public class Calculator extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final TextView text = (TextView) findViewById(R.id.textView);
+                if (equalsJustPressed) {
+                    text.setText("");
+                    equalsJustPressed = false;
+                }
                 if (text.getText().length() < 18) {
                     text.setText(text.getText() + "2");
                 }
@@ -73,6 +85,10 @@ public class Calculator extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final TextView text = (TextView) findViewById(R.id.textView);
+                if (equalsJustPressed) {
+                    text.setText("");
+                    equalsJustPressed = false;
+                }
                 if (text.getText().length() < 18) {
                     text.setText(text.getText() + "3");
                 }
@@ -82,6 +98,10 @@ public class Calculator extends AppCompatActivity {
         button4.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final TextView text = (TextView) findViewById(R.id.textView);
+                if (equalsJustPressed) {
+                    text.setText("");
+                    equalsJustPressed = false;
+                }
                 if (text.getText().length() < 18) {
                     text.setText(text.getText() + "4");
                 }
@@ -91,6 +111,10 @@ public class Calculator extends AppCompatActivity {
         button5.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final TextView text = (TextView) findViewById(R.id.textView);
+                if (equalsJustPressed) {
+                    text.setText("");
+                    equalsJustPressed = false;
+                }
                 if (text.getText().length() < 18) {
                     text.setText(text.getText() + "5");
                 }
@@ -100,6 +124,10 @@ public class Calculator extends AppCompatActivity {
         button6.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final TextView text = (TextView) findViewById(R.id.textView);
+                if (equalsJustPressed) {
+                    text.setText("");
+                    equalsJustPressed = false;
+                }
                 if (text.getText().length() < 18) {
                     text.setText(text.getText() + "6");
                 }
@@ -109,6 +137,10 @@ public class Calculator extends AppCompatActivity {
         button7.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final TextView text = (TextView) findViewById(R.id.textView);
+                if (equalsJustPressed) {
+                    text.setText("");
+                    equalsJustPressed = false;
+                }
                 if (text.getText().length() < 18) {
                     text.setText(text.getText() + "7");
                 }
@@ -118,6 +150,10 @@ public class Calculator extends AppCompatActivity {
         button8.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final TextView text = (TextView) findViewById(R.id.textView);
+                if (equalsJustPressed) {
+                    text.setText("");
+                    equalsJustPressed = false;
+                }
                 if (text.getText().length() < 18) {
                     text.setText(text.getText() + "8");
                 }
@@ -127,6 +163,10 @@ public class Calculator extends AppCompatActivity {
         button9.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final TextView text = (TextView) findViewById(R.id.textView);
+                if (equalsJustPressed) {
+                    text.setText("");
+                    equalsJustPressed = false;
+                }
                 if (text.getText().length() < 18) {
                     text.setText(text.getText() + "9");
                 }
@@ -138,6 +178,13 @@ public class Calculator extends AppCompatActivity {
                 if (currentOp == NO_OP) {
                     currentOp = ADDITION;
                     final TextView text = (TextView) findViewById(R.id.textView);
+                    if (equalsJustPressed) {
+                        text.setText("");
+                        equalsJustPressed = false;
+                    }
+                    if (text.getText() == null || text.getText() == ""){
+                        text.setText(Double.toString(ans));
+                    }
                     if (text.getText().length() < 18) {
                         text.setText(text.getText() + "+");
                     }
@@ -150,6 +197,13 @@ public class Calculator extends AppCompatActivity {
                 if (currentOp == NO_OP) {
                     currentOp = SUBTRACTION;
                     final TextView text = (TextView) findViewById(R.id.textView);
+                    if (equalsJustPressed) {
+                        text.setText("");
+                        equalsJustPressed = false;
+                    }
+                    if (text.getText() == null || text.getText() == ""){
+                        text.setText(Double.toString(ans));
+                    }
                     if (text.getText().length() < 18) {
                         text.setText(text.getText() + "-");
                     }
@@ -162,6 +216,13 @@ public class Calculator extends AppCompatActivity {
                 if (currentOp == NO_OP) {
                     currentOp = TIMES;
                     final TextView text = (TextView) findViewById(R.id.textView);
+                    if (equalsJustPressed) {
+                        text.setText("");
+                        equalsJustPressed = false;
+                    }
+                    if (text.getText() == null || text.getText() == ""){
+                        text.setText(Double.toString(ans));
+                    }
                     if (text.getText().length() < 18) {
                         text.setText(text.getText() + "*");
                     }
@@ -174,6 +235,13 @@ public class Calculator extends AppCompatActivity {
                 if (currentOp == NO_OP) {
                     currentOp = DIVISION;
                     final TextView text = (TextView) findViewById(R.id.textView);
+                    if (equalsJustPressed) {
+                        text.setText("");
+                        equalsJustPressed = false;
+                    }
+                    if (text.getText() == null || text.getText() == ""){
+                        text.setText(Double.toString(ans));
+                    }
                     if (text.getText().length() < 18) {
                         text.setText(text.getText() + "/");
                     }
@@ -184,6 +252,10 @@ public class Calculator extends AppCompatActivity {
         buttonDec.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 final TextView text = (TextView) findViewById(R.id.textView);
+                if (equalsJustPressed) {
+                    text.setText("");
+                    equalsJustPressed = false;
+                }
                 if (text.getText().length() < 18) {
                     text.setText(text.getText() + ".");
                 }
@@ -204,12 +276,15 @@ public class Calculator extends AppCompatActivity {
         final Button buttonEquals = (Button) findViewById(R.id.buttonEquals);
         buttonEquals.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                equalsJustPressed = true;
                 final TextView text = (TextView) findViewById(R.id.textView);
                 final TextView answer = (TextView) findViewById(R.id.editText);
                 answer.setText("");
                 if (currentOp == NO_OP) {
                     try {
                         result = Double.parseDouble(text.getText().toString());
+                    } catch (NullPointerException e){
+                        result = 0.0;
                     } catch(Exception e){
                         answer.setText("Syntax Error");
                     }
@@ -228,6 +303,9 @@ public class Calculator extends AppCompatActivity {
 
                     }
                 }
+                answer.setText(Double.toString(result));
+                ans = result;
+                currentOp = NO_OP;
             }
         });
     }
