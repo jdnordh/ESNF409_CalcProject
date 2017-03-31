@@ -1,14 +1,13 @@
 package com.lab.jdnordh.esnf409_calcproject;
 
-import android.icu.text.DecimalFormat;
-import android.os.Binder;
 import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 /**
- * androidauthority.com was for guidence for lots of features
+ * androidauthority.com was for guidance for lots of features
  */
 public class Calculator extends AppCompatActivity {
     private static final char ADDITION = '+';
@@ -26,8 +25,7 @@ public class Calculator extends AppCompatActivity {
     private double ans;
     private double result;
 
-    //private DecimalFormat format = new DecimalFormat();
-
+    private String oldOp = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,7 +182,7 @@ public class Calculator extends AppCompatActivity {
                         equalsJustPressed = false;
                     }
                     if (text.getText() == null || text.getText() == ""){
-                        text.setText(Double.toString(ans));
+                        text.setText("ans");
                     }
                     if (text.getText().length() < 18) {
                         text.setText(text.getText() + "+");
@@ -203,7 +201,7 @@ public class Calculator extends AppCompatActivity {
                         equalsJustPressed = false;
                     }
                     if (text.getText() == null || text.getText() == ""){
-                        text.setText(Double.toString(ans));
+                        text.setText("ans");
                     }
                     if (text.getText().length() < 18) {
                         text.setText(text.getText() + "-");
@@ -222,7 +220,7 @@ public class Calculator extends AppCompatActivity {
                         equalsJustPressed = false;
                     }
                     if (text.getText() == null || text.getText() == ""){
-                        text.setText(Double.toString(ans));
+                        text.setText("ans");
                     }
                     if (text.getText().length() < 18) {
                         text.setText(text.getText() + "*");
@@ -241,7 +239,7 @@ public class Calculator extends AppCompatActivity {
                         equalsJustPressed = false;
                     }
                     if (text.getText() == null || text.getText() == ""){
-                        text.setText(Double.toString(ans));
+                        text.setText("ans");
                     }
                     if (text.getText().length() < 18) {
                         text.setText(text.getText() + "/");
@@ -281,52 +279,100 @@ public class Calculator extends AppCompatActivity {
                 final TextView text = (TextView) findViewById(R.id.textView);
                 final TextView answer = (TextView) findViewById(R.id.editText);
                 answer.setText("");
+                oldOp = text.getText().toString();
                 if (currentOp == NO_OP) {
-
-                    try {
-                        result = Double.parseDouble(text.getText().toString());
-                    } catch (NullPointerException e){
-                        result = 0.0;
-                    } catch(Exception e){
-                        answer.setText("Syntax Error");
+                    if (oldOp.equals(text.getText().toString())){
+                        String check = text.getText().toString();
+                        for (int i = 0; i < check.length(); i++){
+                            if (check.charAt(i) == ADDITION){
+                                currentOp = ADDITION;
+                                break;
+                            }
+                            else if (check.charAt(i) == SUBTRACTION){
+                                currentOp = SUBTRACTION;
+                                break;
+                            }
+                            else if (check.charAt(i) == TIMES){
+                                currentOp = TIMES;
+                                break;
+                            }
+                            else if (check.charAt(i) == DIVISION){
+                                currentOp = DIVISION;
+                                break;
+                            }
+                            if (i == check.length() - 1){
+                                try {
+                                    result = Double.parseDouble(text.getText().toString());
+                                } catch (NullPointerException e) {
+                                    result = 0.0;
+                                } catch (Exception e) {
+                                    answer.setText("Syntax Error");
+                                }
+                                answer.setText(Double.toString(result));
+                                return;
+                            }
+                        }
                     }
+                    /*else if (currentOp == NO_OP){
+                        try {
+                            result = Double.parseDouble(text.getText().toString());
+                        } catch (NullPointerException e) {
+                            result = 0.0;
+                        } catch (Exception e) {
+                            answer.setText("Syntax Error");
+                        }
+                        return;
+                    }*/
                 }
 
-               else {
-                    String [] arr;
+                try {
+                    String[] arr;
                     String s;
-                    if (currentOp == ADDITION){
+                    if (currentOp == ADDITION) {
                         s = text.getText().toString().replace("+", " +");
                         arr = s.split(" +");
-                        v1 = Double.parseDouble(arr[0]);
+                        if (arr[0].equals("ans")) {
+                            v1 = ans;
+                        } else v1 = Double.parseDouble(arr[0]);
                         v2 = Double.parseDouble(arr[1]);
                         result = v1 + v2;
-                    }
-                    else if (currentOp == SUBTRACTION){
+                    } else if (currentOp == SUBTRACTION) {
                         s = text.getText().toString().replace("-", " -");
                         arr = s.split(" -");
-                        v1 = Double.parseDouble(arr[0]);
+                        if (arr[0].equals("ans")) {
+                            v1 = ans;
+                        } else v1 = Double.parseDouble(arr[0]);
                         v2 = Double.parseDouble(arr[1]);
                         result = v1 - v2;
-                    }
-                    else if (currentOp == TIMES){
+                    } else if (currentOp == TIMES) {
                         s = text.getText().toString().replace("*", " x");
                         arr = s.split(" x");
-                        v1 = Double.parseDouble(arr[0]);
+                        if (arr[0].equals("ans")) {
+                            v1 = ans;
+                        } else v1 = Double.parseDouble(arr[0]);
                         v2 = Double.parseDouble(arr[1]);
                         result = v1 * v2;
-                    }
-                    else if (currentOp == DIVISION){
+                    } else if (currentOp == DIVISION) {
                         s = text.getText().toString().replace("/", " /");
                         arr = s.split(" /");
-                        v1 = Double.parseDouble(arr[0]);
+                        if (arr[0].equals("ans")) {
+                            v1 = ans;
+                        } else v1 = Double.parseDouble(arr[0]);
                         v2 = Double.parseDouble(arr[1]);
+                        if (v2 == 0) throw new ArithmeticException();
                         result = v1 / v2;
                     }
+
+                    answer.setText(Double.toString(result));
+                    ans = result;
+                    currentOp = NO_OP;
+                } catch (ArithmeticException e) {
+                    currentOp = NO_OP;
+                    answer.setText("Division by zero");
+                } catch (Exception e){
+                    currentOp = NO_OP;
+                    answer.setText("Error");
                 }
-                answer.setText(Double.toString(result));
-                ans = result;
-                currentOp = NO_OP;
             }
         });
     }
