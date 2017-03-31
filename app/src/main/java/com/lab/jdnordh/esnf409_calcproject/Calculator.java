@@ -21,7 +21,8 @@ public class Calculator extends AppCompatActivity {
 
     private char currentOp = NO_OP;
 
-    private double v1, v2;
+    private double v1 = Double.NaN;
+    private double v2;
     private double ans;
     private double result;
 
@@ -281,6 +282,7 @@ public class Calculator extends AppCompatActivity {
                 final TextView answer = (TextView) findViewById(R.id.editText);
                 answer.setText("");
                 if (currentOp == NO_OP) {
+
                     try {
                         result = Double.parseDouble(text.getText().toString());
                     } catch (NullPointerException e){
@@ -289,18 +291,37 @@ public class Calculator extends AppCompatActivity {
                         answer.setText("Syntax Error");
                     }
                 }
-               else {
-                    if (currentOp == ADDITION){
 
+               else {
+                    String [] arr;
+                    String s;
+                    if (currentOp == ADDITION){
+                        s = text.getText().toString().replace("+", " +");
+                        arr = s.split(" +");
+                        v1 = Double.parseDouble(arr[0]);
+                        v2 = Double.parseDouble(arr[1]);
+                        result = v1 + v2;
                     }
                     else if (currentOp == SUBTRACTION){
-
+                        s = text.getText().toString().replace("-", " -");
+                        arr = s.split(" -");
+                        v1 = Double.parseDouble(arr[0]);
+                        v2 = Double.parseDouble(arr[1]);
+                        result = v1 - v2;
                     }
                     else if (currentOp == TIMES){
-
+                        s = text.getText().toString().replace("*", " x");
+                        arr = s.split(" x");
+                        v1 = Double.parseDouble(arr[0]);
+                        v2 = Double.parseDouble(arr[1]);
+                        result = v1 * v2;
                     }
                     else if (currentOp == DIVISION){
-
+                        s = text.getText().toString().replace("/", " /");
+                        arr = s.split(" /");
+                        v1 = Double.parseDouble(arr[0]);
+                        v2 = Double.parseDouble(arr[1]);
+                        result = v1 / v2;
                     }
                 }
                 answer.setText(Double.toString(result));
