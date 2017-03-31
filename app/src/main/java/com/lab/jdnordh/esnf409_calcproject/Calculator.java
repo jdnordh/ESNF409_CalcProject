@@ -313,16 +313,6 @@ public class Calculator extends AppCompatActivity {
                             }
                         }
                     }
-                    /*else if (currentOp == NO_OP){
-                        try {
-                            result = Double.parseDouble(text.getText().toString());
-                        } catch (NullPointerException e) {
-                            result = 0.0;
-                        } catch (Exception e) {
-                            answer.setText("Syntax Error");
-                        }
-                        return;
-                    }*/
                 }
 
                 try {
